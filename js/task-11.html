@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      .timer {
+        display: flex;
+        justify-content: center;
+        margin-top: 100px;
+        font-size: 2rem;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        gap: 20px;
+      }
+      .btn-start {
+        padding: 10px 20px;
+        background-color: blue;
+        border: 0px solid black;
+        color: white;
+      }
+      .btn-stop {
+        padding: 10px 20px;
+        background-color: red;
+        border: 0px solid black;
+        color: white;
+      }
+      .btn-reset {
+        padding: 10px 20px;
+        background-color: green;
+        border: 0px solid black;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="timer"><h1 id="timer">00:00:00</h1></div>
+    <div class="container">
+      <button class="btn-start" onclick="startTimer()">Start</button>
+      <button class="btn-stop" onclick="stopTimer()">Stop</button>
+      <button class="btn-reset" onclick="resetTimer()">Reset</button>
+    </div>
+
+    <script>
+      let timer;
+      let second = 0,
+        minutes = 0,
+        hours = 0;
+      let running = false;
+
+      function startTimer() {
+        if (!running) {
+          running = true;
+          timer = setInterval(updateTimer, 1000);
+        }
+      }
+
+      function stopTimer() {
+        running = false;
+        clearInterval(timer);
+      }
+
+      function resetTimer() {
+        stopTimer();
+        second = 0;
+        minutes = 0;
+        hours = 0;
+        document.getElementById('timer').textContent = '00:00:00';
+      }
+
+      function updateTimer() {
+        second++;
+        if (second == 60) {
+          second = 0;
+          minutes++;
+        }
+        if (minutes == 60) {
+          minutes = 0;
+          hours++;
+        }
+        document.getElementById('timer').textContent =
+          (hours < 10 ? '0' + hours : hours) +
+          ':' +
+          (minutes < 10 ? '0' + minutes : minutes) +
+          ':' +
+          (second < 10 ? '0' + second : second);
+      }
+    </script>
+  </body>
+</html>
